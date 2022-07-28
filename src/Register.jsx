@@ -11,26 +11,55 @@ import {
   Input,
   Button,
   FormErrorMessage,
-  fadeConfig,
+  Select,
+  Checkbox,
+  InputGroup,
+  InputRightElement,
+  Icon,
 } from "@chakra-ui/react";
+
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+
+// import { InputRightElement } from "@chakra-ui/core";
+
 import logo from "./assets/register.svg";
 
 const Register = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [password, setPassword] = useState("");
-  const [schoolName, setSchoolName] = useState("");
-  const [email, setEmail] = useState("");
+  const initialValue = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    schoolName: "",
+    checked: false,
+    select: "",
+  };
+
+  const [userData, showUserData] = useState(initialValue);
 
   const [error, setError] = useState(false);
 
   const [show, showPassword] = useState(false);
 
-  const lastNameRef = useRef();
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    showUserData({
+      ...userData,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
+
+  console.log(userData);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    firstName === "" ? setError(true) : setError(false);
+    // userData.firstName === "" ? setError(true) : setError(false);
+    // userData.lastName === "" ? setError(true) : setError(false);
+
+    const userDetails = JSON.stringify(userData);
+    sessionStorage.getItem("userDetails") === null &&
+      sessionStorage.setItem("userDetails", userDetails);
+    alert(userDetails);
   };
 
   return (
@@ -45,7 +74,7 @@ const Register = () => {
         py={6}
         w={{ base: "100%", md: "70%" }}
         flexDirection={{ base: "column", md: "column", lg: "row" }}
-        margin="5rem auto"
+        margin="1rem auto"
       >
         <Box w={{ base: "80%", sm: "60%" }} px={2}>
           <Image src={logo} alt="logo-img" width="100%" />
@@ -70,55 +99,100 @@ const Register = () => {
               <Input
                 type="text"
                 placeholder="Enter your firstname"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                value={userData.firstName}
+                name={"firstName"}
+                onChange={handleChange}
                 onKeyDown={() => setError(false)}
               />
               {!error ? (
-                <FormHelperText>We will not disclose your mail</FormHelperText>
+                <FormHelperText>Enter your firstName</FormHelperText>
               ) : (
-                <FormErrorMessage>Email needed</FormErrorMessage>
+                <FormErrorMessage>Firstname required</FormErrorMessage>
               )}
             </FormControl>
 
-            <FormControl>
+            <FormControl isInvalid={error}>
               <FormLabel color="blue.500">Lastname</FormLabel>
               <Input
                 type="text"
                 placeholder="Enter your lastname"
-                value={lastName}
-                ref={lastNameRef}
-                onChange={() => setLastName(lastNameRef.current.value)}
+                value={userData.lastName}
+                name={"lastName"}
+                onChange={handleChange}
+                onKeyDown={() => setError(false)}
+              />
+              {!error ? (
+                <FormHelperText> </FormHelperText>
+              ) : (
+                <FormErrorMessage>Lastname required</FormErrorMessage>
+              )}
+            </FormControl>
+
+            <FormControl>
+              <FormLabel color="blue.500">Email Address:</FormLabel>
+              <Input
+                type="email"
+                name="email"
+                value={userData.email}
+                onChange={handleChange}
               />
             </FormControl>
 
             <FormControl>
               <FormLabel color="blue.500">Password</FormLabel>
-              <Input
-                type={show ? "text" : "password"}
-                placeholder="Enter your Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <InputGroup size="md">
+                <Input
+                  type={show ? "text" : "password"}
+                  placeholder="Enter your Password"
+                  name={"password"}
+                  value={userData.password}
+                  onChange={handleChange}
+                />
+                <InputRightElement width="3rem">
+                  <Button
+                    h="1.5rem"
+                    size="md"
+                    bg="white"
+                    _hover="white"
+                    _active="white"
+                    outline="none"
+                    onClick={() => showPassword((prev) => !prev)}
+                  >
+                    {show ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
             </FormControl>
-
-            <Button
-              type="button"
-              colorScheme="red"
-              onClick={() => showPassword((prev) => !prev)}
-            >
-              Show
-            </Button>
-
             <FormControl>
               <FormLabel color="blue.500">School</FormLabel>
               <Input
                 type="text"
                 placeholder="Enter name of your School"
-                value={schoolName}
-                onChange={(e) => setSchoolName(e.target.value)}
+                value={userData.schoolName}
+                name={"schoolName"}
+                onChange={handleChange}
               />
             </FormControl>
+
+            <Select
+              placeholder="Select option"
+              name="select"
+              value={userData.select}
+              onChange={handleChange}
+            >
+              <option value="farmer">Farmer</option>
+              <option value="student">Student</option>
+              <option value="programmer">Programmer</option>
+            </Select>
+
+            <Checkbox
+              checked={userData.checked}
+              type="checkbox"
+              name={"checked"}
+              onChange={handleChange}
+            >
+              Agree to terms and condition
+            </Checkbox>
             <Button type="submit" colorScheme="facebook" size="lg" width="50%">
               Submit
             </Button>
