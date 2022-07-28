@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -15,16 +16,15 @@ import {
   Checkbox,
   InputGroup,
   InputRightElement,
-  Icon,
 } from "@chakra-ui/react";
 
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
-// import { InputRightElement } from "@chakra-ui/core";
-
 import logo from "./assets/register.svg";
 
 const Register = () => {
+  // HOOKS ===to navigate btween pages===to help in passing logic
+  const navigate = useNavigate();
   const initialValue = {
     firstName: "",
     lastName: "",
@@ -36,9 +36,7 @@ const Register = () => {
   };
 
   const [userData, showUserData] = useState(initialValue);
-
   const [error, setError] = useState(false);
-
   const [show, showPassword] = useState(false);
 
   const handleChange = (event) => {
@@ -49,8 +47,6 @@ const Register = () => {
     });
   };
 
-  console.log(userData);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // userData.firstName === "" ? setError(true) : setError(false);
@@ -60,6 +56,7 @@ const Register = () => {
     sessionStorage.getItem("userDetails") === null &&
       sessionStorage.setItem("userDetails", userDetails);
     alert(userDetails);
+    navigate("/login");
   };
 
   return (
@@ -153,9 +150,9 @@ const Register = () => {
                     h="1.5rem"
                     size="md"
                     bg="white"
-                    _hover="white"
-                    _active="white"
-                    outline="none"
+                    // _hover="white"
+                    // _active="white"
+                    // outline="none"
                     onClick={() => showPassword((prev) => !prev)}
                   >
                     {show ? <ViewIcon /> : <ViewOffIcon />}
