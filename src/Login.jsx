@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -12,6 +12,7 @@ import {
   Button,
   InputGroup,
   InputRightElement,
+  HStack,
 } from "@chakra-ui/react";
 
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
@@ -64,6 +65,10 @@ const Login = () => {
           width={{ base: "80%" }}
           mx="3rem"
         >
+          <HStack>
+            <Link to={"/"}>Register</Link>
+          </HStack>
+
           <Heading
             as="h1"
             mb={10}
