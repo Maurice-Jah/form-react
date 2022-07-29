@@ -22,6 +22,7 @@ import {
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 import logo from "./assets/register.svg";
+import Nav from "./Nav";
 
 const Register = () => {
   // HOOKS ===to navigate btween pages===to help in passing logic
@@ -83,6 +84,8 @@ const Register = () => {
           width={{ base: "80%" }}
           mx="3rem"
         >
+          <Nav />
+
           <HStack>
             <Link to={"/login"}> Login </Link>
           </HStack>
