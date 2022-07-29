@@ -34,7 +34,9 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    userData?.firstName === username ? alert("welcome") : alert("No pe");
+    userData?.firstName === username
+      ? sessionStorage.setItem("username", username)
+      : alert("Incorrect Details");
   };
 
   return (

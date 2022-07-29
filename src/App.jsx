@@ -4,6 +4,7 @@ import Product from "./Product";
 import FAQs from "./FAQs";
 import Error from "./Error";
 import SharedLayout from "./SharedLayout";
+import ProtectedRoutes from "./ProtectedRoutes";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -12,7 +13,9 @@ function App() {
       <Route path={"/"} element={<SharedLayout />}>
         <Route index element={<Register />} />
         <Route path={"login"} element={<Login />} />
-        <Route path={"products"} element={<Product />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path={"products"} element={<Product />} />
+        </Route>
         <Route path={"faqs"} element={<FAQs />} />
         <Route path={"*"} element={<Error />} />
       </Route>
