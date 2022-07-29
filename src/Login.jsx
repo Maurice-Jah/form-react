@@ -17,7 +17,6 @@ import {
 
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import logo from "./assets/register.svg";
-import Nav from "./Nav";
 
 const Login = () => {
   const [show, showPassword] = useState(false);
@@ -66,8 +65,6 @@ const Login = () => {
           width={{ base: "80%" }}
           mx="3rem"
         >
-          <Nav />
-
           <HStack>
             <Link to={"/"}>Register</Link>
           </HStack>
