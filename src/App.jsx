@@ -6,6 +6,7 @@ import Error from "./Error";
 import SharedLayout from "./SharedLayout";
 import ProtectedRoutes from "./ProtectedRoutes";
 import { Routes, Route } from "react-router-dom";
+import Fetch from "./Fetch";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path={"products"} element={<Product />} />
         </Route>
         <Route path={"faqs"} element={<FAQs />} />
+        <Route path={"fetch"} element={<Fetch />} />
         <Route path={"*"} element={<Error />} />
       </Route>
     </Routes>
