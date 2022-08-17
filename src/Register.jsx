@@ -54,9 +54,11 @@ const Register = () => {
     // userData.lastName === "" ? setError(true) : setError(false);
 
     const userDetails = JSON.stringify(userData);
-    sessionStorage.getItem("userDetails") === null &&
-      sessionStorage.setItem("userDetails", userDetails);
-    alert(userDetails);
+    sessionStorage.getItem("userDetails") === null
+      ? sessionStorage.setItem("userDetails", userDetails)
+      : (sessionStorage.removeItem("userDatils"),
+        sessionStorage.setItem("userDetails", userDetails));
+
     navigate("/login");
   };
 

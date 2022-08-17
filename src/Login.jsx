@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -24,6 +24,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [userData, setUserData] = useState({});
 
+  const navigate = useNavigate();
+
   //   To get data from session storage once the window loads
   useEffect(() => {
     const registeredData = sessionStorage.getItem("userDetails");
@@ -35,7 +37,7 @@ const Login = () => {
     e.preventDefault();
 
     userData?.firstName === username
-      ? sessionStorage.setItem("username", username)
+      ? (sessionStorage.setItem("username", username), navigate("/products"))
       : alert("Incorrect Details");
   };
 
